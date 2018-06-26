@@ -1,0 +1,17 @@
+Package: SimplifyStats
+Type: Package
+Title: Simplifies Pairwise Statistical Analyses
+Version: 1.0
+Date: 2018-06-25
+Author: Zachary Colburn
+Maintainer: Zachary Colburn <zcolburn@gmail.com>
+Description: Pairwise group comparisons are often performed. While there are many packages that can perform these analyses, often it is the case that only a subset of comparisons are desired. 'SimplifyStats' performs pairwise comparisons and returns the resutls in a tidy fashion.
+License: GPL (>= 3)
+Imports: Rcpp (>= 0.12.17),
+  assertthat(>= 0.2.0),
+  dplyr(>= 0.7.4),
+  broom(>= 0.4.4)
+LinkingTo: Rcpp
+Suggests: testthat
+RoxygenNote: 6.0.1
+Encoding: UTF-8
