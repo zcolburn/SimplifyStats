@@ -4,12 +4,12 @@
 \alias{pairwise_stats}
 \title{Calculate pairwise statistics between groups}
 \usage{
-pairwise_stats(x, factor_col, var_col, fxn, two_way = FALSE, ...)
+pairwise_stats(x, group_cols, var_col, fxn, two_way = FALSE, ...)
 }
 \arguments{
 \item{x}{A data.frame or tibble.}
 
-\item{factor_col}{Name of the grouping column}
+\item{group_cols}{Vector of the names of the grouping columns}
 
 \item{var_col}{Name of the variable of interest}
 
@@ -20,10 +20,20 @@ pairwise_stats(x, factor_col, var_col, fxn, two_way = FALSE, ...)
 \item{...}{Extra arguments passed to fxn, i.e. alternative = "greater", etc.}
 }
 \value{
+An object of class pairwise_stats.
+
 A data.frame
 }
 \description{
-pairwise_stats performs a provided function pairwise between all combinations of groups. The first two arguments of the function passed to pairwise_stats must accept vectors of values as inputs. These vectors should correspond to the values for group A and group B, respectively.
+pairwise_stats performs a provided function pairwise between 
+all combinations of groups. The first two arguments of the function passed 
+to pairwise_stats must accept vectors of values as inputs. These vectors 
+should correspond to the values for group A and group B, respectively.
 
-The function takes as input a data.frame or tibble, the column name of a categorical variable, the column name for a variable of interest, and a function.
+The function takes as input a data.frame or tibble, the column names of 
+grouping variables, the column name for a variable of interest, and a 
+function.
+}
+\examples{
+\dontrun{pairwise_stats(iris, "Species", "Sepal.Length", t.test)}
 }

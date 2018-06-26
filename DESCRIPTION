@@ -10,8 +10,12 @@ License: GPL (>= 3)
 Imports: Rcpp (>= 0.12.17),
   assertthat(>= 0.2.0),
   dplyr(>= 0.7.4),
-  broom(>= 0.4.4)
+  broom(>= 0.4.4),
+  moments(>= 0.14)
 LinkingTo: Rcpp
-Suggests: testthat
+Suggests: testthat,
+    knitr,
+    rmarkdown
 RoxygenNote: 6.0.1
 Encoding: UTF-8
+VignetteBuilder: knitr
