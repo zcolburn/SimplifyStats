@@ -8,7 +8,7 @@ In many analyses, pairwise group comparisons or groupwise descriptive statistics
 
 # Functions by category
 ## Groupwise descriptive statistics
-* group_summarize()
+* group_summarize
 
 ## Pairwise hypothesis testing
-* pairwise_stats()
+* pairwise_stats
