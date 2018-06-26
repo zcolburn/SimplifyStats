@@ -21,7 +21,8 @@ An object of class group_summary. group_summary is a list of data
 frames. The name of each element of the list is the name of the 
 corresponding variable analyzed.
 
-A data.frame
+A group_summary object with slots for the results, grouping 
+variables, variables of interest, and any other parameters passed in.
 }
 \description{
 group_summarize performs descriptive statistics for each group 
@@ -31,7 +32,11 @@ The function takes as input a data.frame or tibble, the column names of
 grouping variables, and the column names of variables of interest.
 }
 \examples{
-\dontrun{
-pairwise_stats(iris, "Species", c("Sepal.Length","Sepal.Width"))
-}
+group_summarize(
+  iris, 
+  group_cols = "Species", 
+  var_cols = c("Sepal.Length","Sepal.Width"), 
+  na.rm = TRUE
+)
+
 }

@@ -34,7 +34,7 @@ test_that(
       computation <- pairwise_stats(
         iris, "Species", "Sepal.Length", 
         t.test
-      )$p.value
+      )$result$p.value
       computation <- signif(computation, 3)
       all(expectation == computation)
     })

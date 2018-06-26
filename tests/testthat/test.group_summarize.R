@@ -19,10 +19,6 @@ test_that(
     expect_error({
       group_summarize(iris, "Species", "Sepal")
     })
-    
-    expect_error({
-      group_summarize(iris, "Species", "Sepal.Length")
-    })
   }
 )
 
@@ -42,7 +38,7 @@ test_that(
         var_cols = c("Sepal.Length","Sepal.Width"), 
         na.rm = TRUE
       )
-      computation$Sepal.Length$Mean[1] == 4.4
+      computation$result$Sepal.Length$Mean[1] == 4.4
     })
   }
 )

@@ -18,12 +18,16 @@
 #' 
 #' @return An object of class pairwise_stats.
 #' 
-#' @import assertthat broom dplyr
+#' @import broom dplyr tibble
 #' @importFrom utils combn
+#' @importFrom assertthat assert_that is.flag
 #'
 #' @export
-#' @return A data.frame
-#' @examples \dontrun{pairwise_stats(iris, "Species", "Sepal.Length", t.test)}
+#' @return A pairwise_stats object with slots for the results, grouping 
+#' variables, variable of interest, and any other parameters passed in, 
+#' excluding the input data frame.
+#' 
+#' @examples pairwise_stats(iris, "Species", "Sepal.Length", t.test)
 pairwise_stats <- function(x, group_cols, var_col, fxn, two_way = FALSE, ...){
   # Check input variables.
   # # Is x a data.frame of dimensions greater than 0 x 0?
@@ -37,7 +41,7 @@ pairwise_stats <- function(x, group_cols, var_col, fxn, two_way = FALSE, ...){
   if(!(class(group_cols) == "character")){
     stop("group_cols must be of the character class.")
   }
-  assertthat::assert_that(all(sapply(group_cols, nchar) > 0))
+  assert_that(all(sapply(group_cols, nchar) > 0))
   group_cols_in <- group_cols %in% colnames(x)
   if(!all(group_cols_in)){
     stop(paste0(
@@ -51,7 +55,7 @@ pairwise_stats <- function(x, group_cols, var_col, fxn, two_way = FALSE, ...){
   if(length(var_col) > 1){
     stop("var_col must be of length 1.")
   }
-  assertthat::assert_that(nchar(var_col) > 0)
+  assert_that(nchar(var_col) > 0)
   if(!(var_col %in% colnames(x))){
     stop(paste0(
       var_col, 
@@ -63,7 +67,7 @@ pairwise_stats <- function(x, group_cols, var_col, fxn, two_way = FALSE, ...){
     stop("fxn must be a function.")
   }
   # # Is two_way a logical?
-  assertthat::is.flag(two_way)
+  is.flag(two_way)
   
   ############################# Main function
   
@@ -121,6 +125,43 @@ pairwise_stats <- function(x, group_cols, var_col, fxn, two_way = FALSE, ...){
     groups_out,
     output_stats
   )
+  
+  # Convert to a tibble.
+  output <- tibble::as_tibble(output)
+  
+  params <- as.list(match.call())
+  output <- tibble::lst(
+    result = output,
+    group_cols = group_cols,
+    var_col = var_col,
+    two_way = two_way,
+    fxn = fxn,
+    other_parameters = params[!(
+      names(params) %in% c(1:5, "x", "group_cols", "var_col", "fxn", "two_way")
+    )]
+  )
+  
   class(output) <- "pairwise_stats"
+  
+  
   output
+}
+
+
+#' Print a pairwise_stats object
+#'
+#' @param x An object of class pairwise_stats.
+#' @param ... Additional parameters passed to print.
+#'
+#' @export
+#'
+#' @examples \dontrun{
+#' print(pairwise_stats(iris, "Species", "Sepal.Length", t.test))
+#' }
+print.pairwise_stats <- function(x, ...){
+  cat("Pairwise comparisons were performed on:\n")
+  if(length(x$group_cols) > 1){plural <- "s"}else{plural <- ""}
+  cat("  Grouping variable", plural, ": ", trimws(paste(x$group_cols)), "\n")
+  cat("  Variable of interest: ", x$var_col, "\n\n")
+  print(x$result)
 }

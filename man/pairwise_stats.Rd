@@ -22,7 +22,9 @@ pairwise_stats(x, group_cols, var_col, fxn, two_way = FALSE, ...)
 \value{
 An object of class pairwise_stats.
 
-A data.frame
+A pairwise_stats object with slots for the results, grouping 
+variables, variable of interest, and any other parameters passed in, 
+excluding the input data frame.
 }
 \description{
 pairwise_stats performs a provided function pairwise between 
@@ -35,5 +37,5 @@ grouping variables, the column name for a variable of interest, and a
 function.
 }
 \examples{
-\dontrun{pairwise_stats(iris, "Species", "Sepal.Length", t.test)}
+pairwise_stats(iris, "Species", "Sepal.Length", t.test)
 }
