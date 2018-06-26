@@ -75,13 +75,11 @@ group_summarize <- function(x, group_cols, var_cols, ...){
   
   # Functions to be applied to each variable of interest.
   fxn_list <- list(
+    "N" = function(vals,...){sum(!is.na(vals))},
     "Mean" = mean,
     "StdDev" = sd,
-    "N" = function(vals,...){sum(!is.na(vals))},
     "StdErr" = function(vals,...){sd(vals,...)/sqrt(sum(!is.na(vals)))},
-    "Median" = median,
     "Min" = min,
-    "Max" = max,
     "Quartile1" = function(vals,...){
       params <- as.list(match.call())
       do_with_na <- FALSE
@@ -90,6 +88,7 @@ group_summarize <- function(x, group_cols, var_cols, ...){
       if(!do_with_na & any(na_vals)){return(NA)}
       quantile(vals[!na_vals], probs = 0.25, ...)
     },
+    "Median" = median,
     "Quartile3" = function(vals,...){
       params <- as.list(match.call())
       do_with_na <- FALSE
@@ -98,6 +97,7 @@ group_summarize <- function(x, group_cols, var_cols, ...){
       if(!do_with_na & any(na_vals)){return(NA)}
       quantile(vals[!na_vals], probs = 0.75, ...)
     },
+    "Max" = max,
     "PropNA" = function(vals,...){sum(is.na(vals))/length(vals)},
     "Kurtosis" = moments::kurtosis,
     "Skewness" = moments::skewness,
