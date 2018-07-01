@@ -31,11 +31,14 @@
 pairwise_stats <- function(x, group_cols, var_col, fxn, two_way = FALSE, ...){
   # Check input variables.
   # # Is x a data.frame of dimensions greater than 0 x 0?
-  if(!class(x) %in% c("tbl_df", "data.frame")){
+  if(!(class(x)[1] %in% c("tbl_df", "data.frame"))){
     stop("x must be a data.frame or tbl_df.")
   }
   if((nrow(x) == 0) | (ncol(x) == 0)){
     stop("x must no have a dimension of length 0.")
+  }
+  if(class(x)[1] == "tbl_df"){
+    x <- dplyr::ungroup(x)
   }
   # # Are group_col and var_col character variables found in x's colnames?
   if(!(class(group_cols) == "character")){
