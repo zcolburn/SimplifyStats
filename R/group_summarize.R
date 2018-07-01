@@ -224,7 +224,7 @@ print.group_summary <- function(x, num_to_print = 3, ...){
   }
   cat("Pairwise comparisons were performed on:\n")
   groups <- x$group_cols
-  if(length(groups) > 1){plural <- "s"}else{plural <- ""}
+  if(length(groups) > 1){plural_group <- "s"}else{plural_group <- ""}
   if(length(groups) > 5){
     group_display <- head(groups, 5)
     group_display <- paste0(
@@ -234,8 +234,20 @@ print.group_summary <- function(x, num_to_print = 3, ...){
   }else{
     group_display <- trimws(paste(groups))
   }
-  cat(paste0("  Grouping variable", plural), ": ", group_display, "\n")
-  cat("  Variable of interest: ", x$var_col, "\n\n")
+  var_names <- x$var_cols
+  if(length(var_names) > 1){plural_var <- "s"}else{plural_var <- ""}
+  if(length(var_names) > 5){
+    var_display <- head(var_names, 5)
+    var_display <- paste0(
+      trimws(paste(var_display, collapse = " ")), 
+      "... truncated"
+    )
+  }else{
+    var_display <- trimws(paste(var_names))
+  }
+  
+  cat(paste0("  Grouping variable", plural_group), ": ", group_display, "\n")
+  cat(paste0("  Variable", plural_var), " of interest: ", var_display, "\n\n")
   if(num_to_print != 0){
     if(length(x$result) > num_to_print){
       print(x$result[1:num_to_print])
