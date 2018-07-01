@@ -83,7 +83,7 @@ pairwise_stats <- function(x, group_cols, var_col, fxn, two_way = FALSE, ...){
     stop("group_col must contain more than one level.")
   }
   # Create a group_id to group_cols data.frame.
-  unique_groups_df <- unique(groups_df)
+  unique_groups_df <- as.data.frame(unique(groups_df))
   unique_group_ids <- interaction(unique_groups_df)
   rownames(unique_groups_df) <- unique_group_ids
   

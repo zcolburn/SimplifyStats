@@ -80,7 +80,7 @@ group_summarize <- function(x, group_cols, var_cols, ...){
   
   # Create a group_id to group_cols data.frame.
   groups <- unique_groups_df$.unique_group_id_column
-  unique_groups_df <- unique_groups_df[,-which(
+  unique_groups_df <- as.data.frame(unique_groups_df)[,-which(
     colnames(unique_groups_df) == ".unique_group_id_column"), drop = FALSE]
   rownames(unique_groups_df) <- groups
   
