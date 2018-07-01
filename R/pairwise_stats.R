@@ -195,13 +195,13 @@ print.pairwise_stats <- function(x, ...){
   if(length(groups) > 5){
     group_display <- head(groups, 5)
     group_display <- paste0(
-      trimws(paste(group_display, collapse = " ")), 
+      trimws(paste(group_display, collapse = ", ")), 
       "... truncated"
     )
   }else{
     group_display <- trimws(paste(groups))
   }
-  cat(paste0("  Grouping variable", plural), ": ", group_display, "\n")
+  cat(paste0("  Grouping variable", plural, ":"), group_display, "\n")
   cat("  Variable of interest: ", x$var_col, "\n\n")
   print(x$result)
 }

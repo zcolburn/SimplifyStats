@@ -228,7 +228,7 @@ print.group_summary <- function(x, num_to_print = 3, ...){
   if(length(groups) > 5){
     group_display <- head(groups, 5)
     group_display <- paste0(
-      trimws(paste(group_display, collapse = " ")), 
+      trimws(paste(group_display, collapse = ", ")), 
       "... truncated"
     )
   }else{
@@ -239,15 +239,15 @@ print.group_summary <- function(x, num_to_print = 3, ...){
   if(length(var_names) > 5){
     var_display <- head(var_names, 5)
     var_display <- paste0(
-      trimws(paste(var_display, collapse = " ")), 
+      trimws(paste(var_display, collapse = ", ")), 
       "... truncated"
     )
   }else{
     var_display <- trimws(paste(var_names))
   }
   
-  cat(paste0("  Grouping variable", plural_group), ": ", group_display, "\n")
-  cat(paste0("  Variable", plural_var), " of interest: ", var_display, "\n\n")
+  cat(paste0("  Grouping variable", plural_group, ":"), group_display, "\n")
+  cat(paste0("  Variable", plural_var, " of interest:"), var_display, "\n\n")
   if(num_to_print != 0){
     if(length(x$result) > num_to_print){
       print(x$result[1:num_to_print])
