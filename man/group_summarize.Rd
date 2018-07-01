@@ -32,11 +32,5 @@ The function takes as input a data.frame or tibble, the column names of
 grouping variables, and the column names of variables of interest.
 }
 \examples{
-group_summarize(
-  iris, 
-  group_cols = "Species", 
-  var_cols = c("Sepal.Length","Sepal.Width"), 
-  na.rm = TRUE
-)
-
+group_summarize(iris, "Species", c("Sepal.Length", "Sepal.Width"))
 }

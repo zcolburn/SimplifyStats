@@ -27,13 +27,7 @@
 #' variables, variables of interest, and any other parameters passed in.
 #' 
 #' @examples 
-#' group_summarize(
-#'   iris, 
-#'   group_cols = "Species", 
-#'   var_cols = c("Sepal.Length","Sepal.Width"), 
-#'   na.rm = TRUE
-#' )
-#' 
+#' group_summarize(iris, "Species", c("Sepal.Length", "Sepal.Width"))
 group_summarize <- function(x, group_cols, var_cols, ...){
   # Check input variables.
   # # Is x a data.frame of dimensions greater than 0 x 0?
@@ -204,13 +198,8 @@ group_summarize <- function(x, group_cols, var_cols, ...){
 #'
 #' @export
 #'
-#' @examples \dontrun{
-#' group_summarize(
-#'   iris, 
-#'   group_cols = "Species", 
-#'   var_cols = c("Sepal.Length","Sepal.Width")
-#' )
-#' }
+#' @examples
+#' group_summarize(iris, "Species", c("Sepal.Length", "Sepal.Width"))
 print.group_summary <- function(x, num_to_print = 3, ...){
   if((length(class(num_to_print)) != 1) |
      (!(class(num_to_print) %in% c("integer", "numeric")))){

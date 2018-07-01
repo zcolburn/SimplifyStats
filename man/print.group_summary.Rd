@@ -17,11 +17,5 @@
 Print a group_summary object
 }
 \examples{
-\dontrun{
-group_summarize(
-  iris, 
-  group_cols = "Species", 
-  var_cols = c("Sepal.Length","Sepal.Width")
-)
-}
+group_summarize(iris, "Species", c("Sepal.Length", "Sepal.Width"))
 }

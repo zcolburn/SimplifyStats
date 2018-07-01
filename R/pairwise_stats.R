@@ -27,7 +27,8 @@
 #' variables, variable of interest, and any other parameters passed in, 
 #' excluding the input data frame.
 #' 
-#' @examples pairwise_stats(iris, "Species", "Sepal.Length", t.test)
+#' @examples 
+#' pairwise_stats(iris, "Species", "Sepal.Length", t.test)
 pairwise_stats <- function(x, group_cols, var_col, fxn, two_way = FALSE, ...){
   # Check input variables.
   # # Is x a data.frame of dimensions greater than 0 x 0?
@@ -185,9 +186,8 @@ pairwise_stats <- function(x, group_cols, var_col, fxn, two_way = FALSE, ...){
 #'
 #' @export
 #'
-#' @examples \dontrun{
+#' @examples 
 #' print(pairwise_stats(iris, "Species", "Sepal.Length", t.test))
-#' }
 print.pairwise_stats <- function(x, ...){
   cat("Pairwise comparisons were performed on:\n")
   if(length(x$group_cols) > 1){plural <- "s"}else{plural <- ""}

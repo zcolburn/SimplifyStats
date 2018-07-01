@@ -1,7 +1,7 @@
 Package: SimplifyStats
 Type: Package
 Title: Simplifies Pairwise Statistical Analyses
-Version: 1.0
+Version: 1.0.1
 Date: 2018-06-25
 Author: Zachary Colburn
 Maintainer: Zachary Colburn <zcolburn@gmail.com>

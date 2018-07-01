@@ -15,7 +15,5 @@
 Print a pairwise_stats object
 }
 \examples{
-\dontrun{
 print(pairwise_stats(iris, "Species", "Sepal.Length", t.test))
-}
 }
