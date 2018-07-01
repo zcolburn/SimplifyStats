@@ -111,15 +111,40 @@ pairwise_stats <- function(x, group_cols, var_col, fxn, two_way = FALSE, ...){
   output_stats <- lapply(
     split(group_pairs, 1:nrow(group_pairs)),
     function(group_elements){
-      output_stats <- fxn(
-        x[[var_col]][group_ids == group_elements[1]],
-        x[[var_col]][group_ids == group_elements[2]],
-        ...
+      try(
+        {
+          output_stats <- fxn(
+            x[[var_col]][group_ids == group_elements[1]],
+            x[[var_col]][group_ids == group_elements[2]],
+            ...
+          )
+          # Tidy the results.
+          output_stats <- broom::tidy(output_stats)
+          return(output_stats)
+        },
+        silent = TRUE
       )
-      # Tidy the results.
-      broom::tidy(output_stats)
+      return(NULL)
     }
   )
+  
+  # If all tests failed then return an error. Otherwise, set each row of output 
+  # for failed tests to NA.
+  nulls <- sapply(output_stats, is.null)
+  if(any(nulls)){
+    if(any(!nulls)){
+      template <- output_stats[[which(!nulls)[1]]]
+      for(i in 1:ncol(template)){
+        template[,i] <- NA
+      }
+      for(i in which(nulls)){
+        output_stats[[i]] <- template
+      }
+    }else{
+      stop("All tests failed!")
+    }
+  }
+  
   # Stack the results of each comparison on top of each other.
   output_stats <- dplyr::bind_rows(output_stats)
   
@@ -155,6 +180,8 @@ pairwise_stats <- function(x, group_cols, var_col, fxn, two_way = FALSE, ...){
 #'
 #' @param x An object of class pairwise_stats.
 #' @param ... Additional parameters passed to print.
+#' 
+#' @importFrom utils head
 #'
 #' @export
 #'
@@ -164,7 +191,17 @@ pairwise_stats <- function(x, group_cols, var_col, fxn, two_way = FALSE, ...){
 print.pairwise_stats <- function(x, ...){
   cat("Pairwise comparisons were performed on:\n")
   if(length(x$group_cols) > 1){plural <- "s"}else{plural <- ""}
-  cat("  Grouping variable", plural, ": ", trimws(paste(x$group_cols)), "\n")
+  groups <- x$group_cols
+  if(length(groups) > 2){
+    group_display <- head(groups, 2)
+    group_display <- paste0(
+      trimws(paste(group_display, collapse = " ")), 
+      "... truncated"
+    )
+  }else{
+    group_display <- trimws(paste(groups))
+  }
+  cat(paste0("  Grouping variable", plural), ": ", group_display, "\n")
   cat("  Variable of interest: ", x$var_col, "\n\n")
   print(x$result)
 }

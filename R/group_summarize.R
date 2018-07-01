@@ -199,6 +199,8 @@ group_summarize <- function(x, group_cols, var_cols, ...){
 #' @param x An object of class group_summary.
 #' @param num_to_print An integer specifying the number of tibbles to print.
 #' @param ... Additional parameters passed to print.
+#' 
+#' @importFrom utils head
 #'
 #' @export
 #'
@@ -221,8 +223,18 @@ print.group_summary <- function(x, num_to_print = 3, ...){
     stop("num_to_print must be a natural number.")
   }
   cat("Pairwise comparisons were performed on:\n")
-  if(length(x$group_cols) > 1){plural <- "s"}else{plural <- ""}
-  cat("  Grouping variable", plural, ": ", trimws(paste(x$group_cols)), "\n")
+  groups <- x$group_cols
+  if(length(groups) > 1){plural <- "s"}else{plural <- ""}
+  if(length(groups) > 5){
+    group_display <- head(groups, 5)
+    group_display <- paste0(
+      trimws(paste(group_display, collapse = " ")), 
+      "... truncated"
+    )
+  }else{
+    group_display <- trimws(paste(groups))
+  }
+  cat(paste0("  Grouping variable", plural), ": ", group_display, "\n")
   cat("  Variable of interest: ", x$var_col, "\n\n")
   if(num_to_print != 0){
     if(length(x$result) > num_to_print){
