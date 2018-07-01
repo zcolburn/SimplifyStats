@@ -192,8 +192,8 @@ print.pairwise_stats <- function(x, ...){
   cat("Pairwise comparisons were performed on:\n")
   if(length(x$group_cols) > 1){plural <- "s"}else{plural <- ""}
   groups <- x$group_cols
-  if(length(groups) > 2){
-    group_display <- head(groups, 2)
+  if(length(groups) > 5){
+    group_display <- head(groups, 5)
     group_display <- paste0(
       trimws(paste(group_display, collapse = " ")), 
       "... truncated"

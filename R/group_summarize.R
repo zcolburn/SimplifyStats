@@ -131,7 +131,7 @@ group_summarize <- function(x, group_cols, var_cols, ...){
       if((num_na <= 3) | num_na >= 5000){
         if(!shapiro_warning){
           shapiro_warning <<- TRUE
-          print("The Shapiro-Wilk test requires 3 < N < 5000.")
+          cat("\nThe Shapiro-Wilk test requires 3 < N < 5000.\n\n")
         }
         return(NA)
       }
@@ -251,7 +251,7 @@ print.group_summary <- function(x, num_to_print = 3, ...){
   if(num_to_print != 0){
     if(length(x$result) > num_to_print){
       print(x$result[1:num_to_print])
-      cat("\n\n  Output truncated!")
+      cat("\n  ... Output truncated!")
     }else{
       print(x$result)
     }
