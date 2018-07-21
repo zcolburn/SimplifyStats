@@ -36,7 +36,7 @@ pairwise_stats <- function(x, group_cols, var_col, fxn, two_way = FALSE, ...){
     stop("x must be a data.frame or tbl_df.")
   }
   if((nrow(x) == 0) | (ncol(x) == 0)){
-    stop("x must no have a dimension of length 0.")
+    stop("x must not have a dimension of length 0.")
   }
   if(class(x)[1] == "tbl_df"){
     x <- dplyr::ungroup(x)
