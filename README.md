@@ -6,6 +6,7 @@ In many analyses, pairwise group comparisons or groupwise descriptive statistics
 [![Travis-CI Build Status](https://travis-ci.org/zcolburn/SimplifyStats.svg?branch=master)](https://travis-ci.org/zcolburn/SimplifyStats)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/zcolburn/SimplifyStats?branch=master&svg=true)](https://ci.appveyor.com/project/zcolburn/SimplifyStats)
 [![codecov](https://codecov.io/gh/zcolburn/SimplifyStats/branch/master/graph/badge.svg)](https://codecov.io/gh/zcolburn/SimplifyStats)
+[![](https://cranlogs.r-pkg.org/badges/SimplifyStats)](https://cran.r-project.org/package=SimplifyStats)
 [![DOI](https://zenodo.org/badge/138657516.svg)](https://zenodo.org/badge/latestdoi/138657516)
 
 # Functions by category
