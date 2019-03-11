@@ -2,7 +2,6 @@ Package: SimplifyStats
 Type: Package
 Title: Simplifies Pairwise Statistical Analyses
 Version: 2.0.1
-Date: 2018-06-25
 Author: Zachary Colburn
 Maintainer: Zachary Colburn <zcolburn@gmail.com>
 Description: Pairwise group comparisons are often performed. While there are many packages that can perform these analyses, often it is the case that only a subset of comparisons are desired. 'SimplifyStats' performs pairwise comparisons and returns the results in a tidy fashion.
