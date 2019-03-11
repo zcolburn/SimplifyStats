@@ -1,7 +1,7 @@
 Package: SimplifyStats
 Type: Package
 Title: Simplifies Pairwise Statistical Analyses
-Version: 1.0.1
+Version: 2.0.1
 Date: 2018-06-25
 Author: Zachary Colburn
 Maintainer: Zachary Colburn <zcolburn@gmail.com>
@@ -15,6 +15,6 @@ Imports: assertthat(>= 0.2.0),
 Suggests: testthat,
     knitr,
     rmarkdown
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Encoding: UTF-8
 VignetteBuilder: knitr

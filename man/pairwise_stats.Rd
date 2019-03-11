@@ -4,23 +4,26 @@
 \alias{pairwise_stats}
 \title{Calculate pairwise statistics between groups}
 \usage{
-pairwise_stats(x, group_cols, var_col, fxn, two_way = FALSE, ...)
+pairwise_stats(x, group_cols, var_cols, fxn, two_way = FALSE,
+  output_format = "v1", ...)
 }
 \arguments{
 \item{x}{A data.frame or tibble.}
 
-\item{group_cols}{Vector of the names of the grouping columns}
+\item{group_cols}{Vector of the names of the grouping columns.}
 
-\item{var_col}{Name of the variable of interest}
+\item{var_cols}{Vector of the names of the variables of interest.}
 
-\item{fxn}{The function to be applied}
+\item{fxn}{The function to be applied.}
 
-\item{two_way}{Whether the order of data inputs to fxn matter}
+\item{two_way}{Whether the order of data inputs to fxn matter.}
+
+\item{output_format}{The version of the output format (v0 or v1).}
 
 \item{...}{Extra arguments passed to fxn, i.e. alternative = "greater", etc.}
 }
 \value{
-An object of class pairwise_stats.
+A tibble.
 
 A pairwise_stats object with slots for the results, grouping 
 variables, variable of interest, and any other parameters passed in, 

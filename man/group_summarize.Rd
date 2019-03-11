@@ -5,7 +5,7 @@
 \alias{group_summarise}
 \title{Calculate descriptive statistics for each group}
 \usage{
-group_summarize(x, group_cols, var_cols, ...)
+group_summarize(x, group_cols, var_cols, output_format = "v1", ...)
 }
 \arguments{
 \item{x}{A data.frame or tibble.}
@@ -14,12 +14,12 @@ group_summarize(x, group_cols, var_cols, ...)
 
 \item{var_cols}{Vector of the names of the variables of interest.}
 
+\item{output_format}{The version of the output format (v0 or v1).}
+
 \item{...}{Extra arguments passed to fxn, i.e. na.rm = FALSE, etc.}
 }
 \value{
-An object of class group_summary. group_summary is a list of data 
-frames. The name of each element of the list is the name of the 
-corresponding variable analyzed.
+A tibble
 
 A group_summary object with slots for the results, grouping 
 variables, variables of interest, and any other parameters passed in.

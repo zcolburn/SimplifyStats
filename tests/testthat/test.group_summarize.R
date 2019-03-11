@@ -26,10 +26,9 @@ test_that(
   "valid input produce valid output",
   {
     # Generate data.
-    set.seed(8)
     test <- iris
     test$Sepal.Length[1] <- NA
-    test$letter <- sample(letters, nrow(test), replace = TRUE)
+    test$letter <- letters[rep(c(1,2,3,4,5), 30)]
     
     expect_true({
       computation <- group_summarize(
@@ -38,7 +37,7 @@ test_that(
         var_cols = c("Sepal.Length","Sepal.Width"), 
         na.rm = TRUE
       )
-      computation$result$Sepal.Length$Mean[1] == 4.4
+      computation$Mean[26] == 3.1
     })
   }
 )

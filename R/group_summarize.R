@@ -9,11 +9,10 @@
 #' @param x A data.frame or tibble.
 #' @param group_cols Vector of the names of the grouping columns.
 #' @param var_cols Vector of the names of the variables of interest.
+#' @param output_format The version of the output format (v0 or v1).
 #' @param ... Extra arguments passed to fxn, i.e. na.rm = FALSE, etc.
 #' 
-#' @return An object of class group_summary. group_summary is a list of data 
-#' frames. The name of each element of the list is the name of the 
-#' corresponding variable analyzed.
+#' @return A tibble
 #' 
 #' @aliases group_summarise
 #' 
@@ -28,7 +27,7 @@
 #' 
 #' @examples 
 #' group_summarize(iris, "Species", c("Sepal.Length", "Sepal.Width"))
-group_summarize <- function(x, group_cols, var_cols, ...){
+group_summarize <- function(x, group_cols, var_cols, output_format = "v1", ...){
   # Check input variables.
   # # Is x a data.frame of dimensions greater than 0 x 0?
   if(!(class(x)[1] %in% c("tbl_df", "data.frame"))){
@@ -62,6 +61,17 @@ group_summarize <- function(x, group_cols, var_cols, ...){
       paste0(var_cols[!var_cols_in], collapse = " "), 
       " not in x."
     ))
+  }
+  # Ensure that output_format is valid.
+  if(is.null(output_format)) stop("output_format cannot be NULL.")
+  if(
+    !(
+      is.character(output_format) &
+      (length(output_format) == 1) &
+      (output_format %in% c("v0", "v1"))
+    )
+  ){
+    stop("output_format must be 'v0' or 'v1'.")
   }
   
   ############################# Main function
@@ -183,66 +193,27 @@ group_summarize <- function(x, group_cols, var_cols, ...){
     )]
   )
   
-  class(output) <- "group_summary"
-  output
-}
-
-
-#' Print a group_summary object
-#'
-#' @param x An object of class group_summary.
-#' @param num_to_print An integer specifying the number of tibbles to print.
-#' @param ... Additional parameters passed to print.
-#' 
-#' @importFrom utils head
-#'
-#' @export
-#'
-#' @examples
-#' group_summarize(iris, "Species", c("Sepal.Length", "Sepal.Width"))
-print.group_summary <- function(x, num_to_print = 3, ...){
-  if((length(class(num_to_print)) != 1) |
-     (!(class(num_to_print) %in% c("integer", "numeric")))){
-    stop("num_to_print is of the wrong class.")
-  }
-  if(!(as.integer(num_to_print) == num_to_print)){
-    stop("num_to_print must be an integer.")
-  }
-  if(num_to_print < 0){
-    stop("num_to_print must be a natural number.")
-  }
-  cat("Pairwise comparisons were performed on:\n")
-  groups <- x$group_cols
-  if(length(groups) > 1){plural_group <- "s"}else{plural_group <- ""}
-  if(length(groups) > 5){
-    group_display <- head(groups, 5)
-    group_display <- paste0(
-      trimws(paste(group_display, collapse = ", ")), 
-      "... truncated"
-    )
-  }else{
-    group_display <- trimws(paste(groups))
-  }
-  var_names <- x$var_cols
-  if(length(var_names) > 1){plural_var <- "s"}else{plural_var <- ""}
-  if(length(var_names) > 5){
-    var_display <- head(var_names, 5)
-    var_display <- paste0(
-      trimws(paste(var_display, collapse = ", ")), 
-      "... truncated"
-    )
-  }else{
-    var_display <- trimws(paste(var_names))
+  # Create the appropriate output based on the version number specified by
+  # output_format.
+  if(output_format == "v0"){
+    class(output) <- "group_summary"
+    return(output)
+  }else if(output_format == "v1"){
+    for(var in names(output$result)){
+      if(nrow(output$result[[var]]) > 0){
+        output$result[[var]] <- dplyr::mutate(
+          output$result[[var]],
+          Variable = var
+        )
+      }
+    }
+    output <- dplyr::bind_rows(output$result)
+    if(nrow(output) > 0){
+      arranged_cols <- colnames(output)
+      arranged_cols <- c("Variable", arranged_cols[arranged_cols != "Variable"])
+      output <- output[,arranged_cols]
+    }
+    return(output)
   }
   
-  cat(paste0("  Grouping variable", plural_group, ":"), group_display, "\n")
-  cat(paste0("  Variable", plural_var, " of interest:"), var_display, "\n\n")
-  if(num_to_print != 0){
-    if(length(x$result) > num_to_print){
-      print(x$result[1:num_to_print])
-      cat("\n  ... Output truncated!")
-    }else{
-      print(x$result)
-    }
-  }
 }
