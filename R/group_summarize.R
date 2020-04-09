@@ -158,7 +158,9 @@ group_summarize <- function(x, group_cols, var_cols, output_format = "v1", ...){
           var_out <- lapply(# and perform the functions in fxn_list
             names(fxn_list),
             function(fxn_name){
-              data.frame(fxn_name = fxn_list[[fxn_name]](vals, ...))
+              tibble::as_tibble(
+                data.frame(fxn_name = fxn_list[[fxn_name]](vals, ...))
+              )
             }
           )
           # Rearrange the values and label the output columns.

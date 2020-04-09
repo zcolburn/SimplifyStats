@@ -1,5 +1,5 @@
 ## Test environments
-* local OS X install (Windows 10, 64-bit), R 3.5.1
+* local OS X install (Windows 10, 64-bit), R 3.6.3
 * win-builder (devel and release)
 * ubuntu 12.04 (on travis-ci), devel and release with gcc or clang compiler
 * osx (on travis-ci), R release
@@ -9,8 +9,7 @@
 
 0 errors | 0 warnings | 0 notes
 
-* This is an update made to handle a change to the random sampling method dependency.
-* Additional functionality was added to both functions with the option to return output in two formats.
+* This update is to account for changes to dplyr's 'bind_cols' function.
 
 ## Reverse dependencies
 

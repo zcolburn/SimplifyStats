@@ -4,8 +4,15 @@
 \alias{pairwise_stats}
 \title{Calculate pairwise statistics between groups}
 \usage{
-pairwise_stats(x, group_cols, var_cols, fxn, two_way = FALSE,
-  output_format = "v1", ...)
+pairwise_stats(
+  x,
+  group_cols,
+  var_cols,
+  fxn,
+  two_way = FALSE,
+  output_format = "v1",
+  ...
+)
 }
 \arguments{
 \item{x}{A data.frame or tibble.}

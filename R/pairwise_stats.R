@@ -124,8 +124,8 @@ pairwise_stats <- function(
         sep = colnames_out
       )
       groups_out <- dplyr::bind_cols(
-        unique_groups_df[group_pairs[,1],,drop = FALSE],
-        unique_groups_df[group_pairs[,2],,drop = FALSE]
+        tibble::as_tibble(unique_groups_df[group_pairs[,1],,drop = FALSE]),
+        tibble::as_tibble(unique_groups_df[group_pairs[,2],,drop = FALSE])
       )
       colnames(groups_out) <- colnames_out
       
@@ -173,7 +173,7 @@ pairwise_stats <- function(
       # Append the comparisons data.frame and the results column-wise.
       output <- dplyr::bind_cols(
         groups_out,
-        output_stats
+        tibble::as_tibble(output_stats)
       )
       
       # Convert to a tibble.
