@@ -1,4 +1,4 @@
-# SimplifyStats 2.0.2
+# SimplifyStats 2.0.4
 
 * Updated output and provided argument to request legacy output format.
 * Updated the pairwise_stats function to enable evaluation of multiple variables in a single call.
